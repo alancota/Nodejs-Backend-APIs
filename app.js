@@ -1,8 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
+
+// ES6 Promises
+mongoose.Promise = global.Promise;
 
 const bookRoutes = require('./api/routes/books');
 const orderRoutes = require('./api/routes/orders');
@@ -12,6 +16,14 @@ app.use(morgan('dev'));
 // Body Parser
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+// MongoDB Connection
+mongoose.connect('mongodb://localhost/demo');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Connected!!!");
+});
 
 // CORS
 app.use((req, res, next) => {
