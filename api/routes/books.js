@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
                 price: doc.price,
                 request: {
                   type: 'GET',
-                  url: req.protocol + '://'+ req.host + ':' + req.socket.localPort + req.originalUrl + '/' + doc._id
+                  url: req.protocol + '://'+ req.hostname + ':' + req.socket.localPort + req.originalUrl + '/' + doc._id
                 }
 
               }
@@ -63,7 +63,7 @@ router.post('/', (req, res, next) => {
             price: result.price,
             request: {
               type: 'GET',
-              url: req.protocol + '://'+ req.host + ':' + req.socket.localPort + req.originalUrl + '/' + result._id
+              url: req.protocol + '://'+ req.hostname + ':' + req.socket.localPort + req.originalUrl + '/' + result._id
             }
           }});
       })
