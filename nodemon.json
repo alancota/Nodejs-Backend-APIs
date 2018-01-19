@@ -1,5 +1,5 @@
 {
   "env": {
-    "MONGO_ATLAS_PWD":"KRfKDTmhtlyWD8yM"
+    "SERVER_PORT": "8002"
   }
 }

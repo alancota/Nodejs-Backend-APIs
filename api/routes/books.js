@@ -10,10 +10,26 @@ const Book = require('../models/books');
 router.get('/', (req, res, next) => {
   // List all the books
   Book.find()
+      .select("_id name price")
       .exec()
       .then(docs => {
-        console.log("All available books: " + docs);
-        res.status(200).json(docs);
+        //console.log("All available books: " + docs);
+        const response = {
+            count: docs.length,
+            books: docs.map(doc => {
+              return {
+                id: doc._id,
+                name: doc.name,
+                price: doc.price,
+                request: {
+                  type: 'GET',
+                  url: req.protocol + '://'+ req.host + ':' + req.socket.localPort + req.originalUrl + '/' + doc._id
+                }
+
+              }
+            })
+        }
+        res.status(200).json(response);
       })
       .catch(err => {
         console.log(err);
@@ -39,7 +55,17 @@ router.post('/', (req, res, next) => {
       .then(result => {
         // Success
         console.log('Book successfully added to the DB: ' + result);
-        res.status(201).json({message: 'Adding new book', status: 'success', createdBook: book});
+        res.status(201).json({
+          message: 'New book created',
+          book: {
+            id: result.id,
+            name: result.name,
+            price: result.price,
+            request: {
+              type: 'GET',
+              url: req.protocol + '://'+ req.host + ':' + req.socket.localPort + req.originalUrl + '/' + result._id
+            }
+          }});
       })
       .catch(err => {
         // Error
@@ -55,6 +81,7 @@ router.get('/:bookId', (req, res, next) => {
   const id = req.params.bookId;
 
   Book.findById(id)
+    .select("_id name price")
     .exec()
     .then(doc => {
       // Success
