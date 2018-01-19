@@ -27,6 +27,7 @@ router.get('/', (req, res, next) => {
                }
              })
          });
+
        })
        .catch(err => {
           res.status(500).json({
@@ -86,45 +87,70 @@ console.log(req.body);
 router.get('/:orderId', (req, res, next) => {
   const id = req.params.orderId;
 
-  Order.findById(id)
-       .select("_id product quantity")
-       .exec()
-       .then(doc => {
-         if (doc) {
-           // Get the product name to present
-           Product.findById(doc.product)
-                  .select("name")
-                  .exec()
-                  .then(prod => {
-                    if (prod) {
-                      res.status(200).json({
-                        orderid: id,
-                        productid: doc.product,
-                        name: prod.name,
-                        quantity: doc.quantity
-                      });
-                    } else {
-                      res.status(200).json({
-                        orderid: id,
-                        productid: doc.product,
-                        quantity: doc.quantity
-                      });
-                    }
-                  })
-                  .catch();
-
-
-         } else {
-           res.status(404).json({
-             message: "Order not found"
+  if (id == "admin") {
+    Order.find()
+         .select("_id product quantity")
+         .exec()
+         .then(docs => {
+           res.status(200).json({
+               count: docs.length,
+               order: docs.map(doc => {
+                 return {
+                   orderid: doc._id
+                 }
+               })
            });
-         }
-       })
-       .catch(err => {
-         res.status(500).json({
-           error: err
+         })
+         .catch(err => {
+            res.status(500).json({
+                error: err
+            })
          });
-       });
+  } else {
+
+    Order.findById(id)
+         .select("_id product quantity")
+         .exec()
+         .then(doc => {
+           if (doc) {
+             // Get the product name to present
+             Product.findById(doc.product)
+                    .select("name")
+                    .exec()
+                    .then(prod => {
+                      if (prod) {
+                        res.status(200).json({
+                          orderid: id,
+                          productid: doc.product,
+                          name: prod.name,
+                          quantity: doc.quantity
+                        });
+                      } else {
+                        res.status(200).json({
+                          orderid: id,
+                          productid: doc.product,
+                          quantity: doc.quantity
+                        });
+                      }
+                    })
+                    .catch();
+
+
+           } else {
+             res.status(404).json({
+               message: "Order not found"
+             });
+           }
+         })
+         .catch(err => {
+           res.status(500).json({
+             error: err
+           });
+         });
+
+  }
+
+
 });
 
 // Change an Order

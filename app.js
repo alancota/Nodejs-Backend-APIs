@@ -2,8 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const delay = require('express-delay');
 
 const app = express();
+
+// The following line adds latency to the transaction
+// 2000 == 2 seconds
+// 5000 == 5 seconds
+// 15000 = 15 seconds
+
+//app.use(delay(5000));
 
 // ES6 Promises
 mongoose.Promise = global.Promise;

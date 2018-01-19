@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
+
 const mongoose = require('mongoose');
+
 
 // Import the book MongoDB Schema
 const Book = require('../models/books');
 
 // GET - List all books
 router.get('/', (req, res, next) => {
+
   // List all the books
   Book.find()
       .select("_id name price")
