@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "ca-apm-probe": "^1.10.54",
     "express": "^4.16.2",
     "express-delay": "^0.2.0",
     "mongoose": "^5.0.0",
