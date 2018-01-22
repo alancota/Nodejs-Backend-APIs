@@ -1,3 +1,6 @@
+// CA APM
+const probe = require('ca-apm-probe').start(process.env.COLLECTOR_AGENT_HOST, process.env.COLLECTOR_AGENT_PORT, process.env.CA_APM_PROBENAME);
+
 // Server handling
 console.log("Starting the server...");
 var os = require('os');
