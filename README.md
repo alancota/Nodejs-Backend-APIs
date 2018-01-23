@@ -14,7 +14,7 @@ These are basic instructions that will help you to get this API running in no ti
 
 ### Starting your server
 
-Clone the master branch to your local server. Then execute the following command to install all the required modules and create the node_modules folder:
+Clone the master branch to your local server. Then execute the following command to install all the required modules and create the **node_modules** folder:
 
 ```
 npm install
@@ -26,7 +26,7 @@ After the installation finishes, you can now start your server by typing:
 npm start
 ```
 
-By default the server will be running in your localhost and use the port 8001 for HTTP and 8002 for HTTPS. You can change them by editing the environment variables defined inside the nodemon.json file. If everything works fine you should see something like this in your console:
+By default the server will be running in your localhost and use the port **8001 for HTTP and 8002 for HTTPS**. You can change them by editing the environment variables defined inside the **nodemon.json** file. If everything works fine you should see something like this in your console:
 
 ```
 ⇒  npm start
