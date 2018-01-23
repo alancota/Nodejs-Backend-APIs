@@ -43,3 +43,5 @@ Server HTTP running at: http://YOURSERVER:8001
 Server HTTPS running at: https://YOURSERVER:8002
 Mongo DB Connected
 ```
+
+You can download the swagger for that API in [this link](https://app.swaggerhub.com/apis/APIMCA/Nodejs-Backend-Demo/1.0.0).
