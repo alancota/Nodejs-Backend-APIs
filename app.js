@@ -18,6 +18,7 @@ mongoose.Promise = global.Promise;
 
 const bookRoutes = require('./api/routes/books');
 const orderRoutes = require('./api/routes/orders');
+const newdemoRoutes = require('./api/routes/newdemo');
 
 // Log middleware
 app.use(morgan('dev'));
@@ -51,6 +52,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/books', bookRoutes);
 app.use('/orders', orderRoutes);
+app.use('/newdemo', newdemoRoutes);
 
 // Not found errors handling
 app.use((req, res, next) => {
