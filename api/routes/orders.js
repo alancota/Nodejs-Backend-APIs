@@ -13,6 +13,7 @@ router.get('/', (req, res, next) => {
        .select("_id product quantity")
        .exec()
        .then(docs => {
+         res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
          res.status(200).json({
              count: docs.length,
              order: docs.map(doc => {
@@ -54,6 +55,7 @@ console.log(req.body);
            order.save()
                .then(result => {
                  console.log('Order successfully placed: '+result);
+                 res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
                  res.status(201).json({
                    message: "Order placed",
                    createdOrder: {
@@ -92,6 +94,7 @@ router.get('/:orderId', (req, res, next) => {
          .select("_id product quantity")
          .exec()
          .then(docs => {
+           res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
            res.status(200).json({
                count: docs.length,
                order: docs.map(doc => {
@@ -119,6 +122,7 @@ router.get('/:orderId', (req, res, next) => {
                     .exec()
                     .then(prod => {
                       if (prod) {
+                        res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
                         res.status(200).json({
                           orderid: id,
                           productid: doc.product,
@@ -126,6 +130,7 @@ router.get('/:orderId', (req, res, next) => {
                           quantity: doc.quantity
                         });
                       } else {
+                        res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
                         res.status(200).json({
                           orderid: id,
                           productid: doc.product,
@@ -137,12 +142,14 @@ router.get('/:orderId', (req, res, next) => {
 
 
            } else {
+             res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
              res.status(404).json({
                message: "Order not found"
              });
            }
          })
          .catch(err => {
+           res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
            res.status(500).json({
              error: err
            });
@@ -164,6 +171,7 @@ router.patch('/:orderId', (req, res, next) => {
   Order.update({ _id: id}, { $set: updateOps })
        .exec()
        .then(result => {
+         res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
          res.status(200).json({
            message: "Order updated",
            request: {
@@ -173,6 +181,7 @@ router.patch('/:orderId', (req, res, next) => {
          });
        })
        .catch(err => {
+         res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
          res.status(500).json({
            error: err
          });
@@ -184,12 +193,14 @@ router.delete('/:orderId', (req, res, next) => {
   Order.remove({ _id: id})
        .exec()
        .then(result => {
+         res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
          res.status(200).json({
            message: "Order deleted",
            log: result
          })
        })
        .catch(err => {
+         res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
          res.status(500).json({
            error: err
          })
