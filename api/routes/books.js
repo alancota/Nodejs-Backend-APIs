@@ -17,6 +17,7 @@ router.get('/', (req, res, next) => {
       .exec()
       .then(docs => {
         //console.log("All available books: " + docs);
+        console.log("remoteaddr: " + req.connection.remoteAddress);
         const response = {
             count: docs.length,
             books: docs.map(doc => {
