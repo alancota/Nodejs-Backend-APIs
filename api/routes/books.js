@@ -32,6 +32,7 @@ router.get('/', (req, res, next) => {
               }
             })
         }
+        res.setHeader('xclient', req.connection.remoteAddress);
         res.status(200).json(response);
       })
       .catch(err => {
