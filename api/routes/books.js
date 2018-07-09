@@ -32,7 +32,7 @@ router.get('/', (req, res, next) => {
               }
             })
         }
-        res.setHeader('xclient', req.connection.remoteAddress);
+        res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
         res.status(200).json(response);
       })
       .catch(err => {
@@ -59,6 +59,7 @@ router.post('/', (req, res, next) => {
       .then(result => {
         // Success
         console.log('Book successfully added to the DB: ' + result);
+        res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
         res.status(201).json({
           message: 'New book created',
           book: {
@@ -92,6 +93,7 @@ router.get('/:bookId', (req, res, next) => {
       // If the book has been found
       if (doc) {
         console.log("Book retrieved from database: " + doc);
+        res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
         res.status(200).json(doc);
       } else {
         // Book not found
@@ -121,6 +123,7 @@ router.patch('/:bookId', (req, res, next) => {
       .exec()
       .then(result => {
         console.log(result);
+        res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
         res.status(200).json({
           message: "Book updated!"
         });
@@ -141,6 +144,7 @@ router.delete('/:bookId', (req, res, next) => {
           .then(result => {
             // Success
             console.log("Item "+ id + "deleted! - "+ result)
+            res.setHeader('x-client-remoteaddr', req.connection.remoteAddress);
             res.status(200).json({message: 'Product deleted!', result: result})
           })
           .catch(err => {

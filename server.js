@@ -16,6 +16,7 @@ const serverSsl = https.createServer({
     cert: fs.readFileSync('./certs/cert.pem')
 },app);
 
+// Listening only IPV4
 server.listen(port, '0.0.0.0');
 serverSsl.listen(portSsl, '0.0.0.0');
 
