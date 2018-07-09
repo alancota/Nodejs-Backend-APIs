@@ -1,8 +1,12 @@
 const express = require('express');
+const ipfilter = require('express-ipfilter').IpFilter;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const delay = require('express-delay');
+
+// Whitelist the following IPs
+var ips = ['34.213.86.33'];
 
 const app = express();
 
@@ -36,7 +40,7 @@ db.once('open', function() {
 
 // CORS
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '34.213.86.33');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   if (req.method == 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
@@ -48,6 +52,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// Allow traffic only from the IPs with the variable
+app.use(ipfilter(ips, {mode: 'allow'}));
 
 // Routes
 app.use('/books', bookRoutes);
