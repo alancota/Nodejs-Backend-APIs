@@ -16,8 +16,8 @@ const serverSsl = https.createServer({
     cert: fs.readFileSync('./certs/cert.pem')
 },app);
 
-server.listen(port);
-serverSsl.listen(portSsl);
+server.listen(port, '0.0.0.0');
+serverSsl.listen(portSsl, '0.0.0.0');
 
 console.log("Server HTTP running at: http://"+os.hostname+":"+port);
 console.log("Server HTTPS running at: https://"+os.hostname+":"+portSsl);
