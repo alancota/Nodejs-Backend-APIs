@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const delay = require('express-delay');
 
 // Whitelist the following IPs
-var ips = ['34.213.86.33', '34.211.97.178', '54.202.110.87', 'ip-172-31-1-4.us-west-2.compute.internal', '35.161.52.131'];
+var ips = ['99.27.202.97', '54.202.218.42', '54.184.238.228', '35.166.149.117'];
 
 const app = express();
 
